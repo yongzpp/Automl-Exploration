@@ -1,0 +1,29 @@
+#for more details see search.py for the exact terms to specify (can be extended)
+#example search_space for HPO
+{
+    "lr":{"_type":"choice", "_value":[0.01, 0.005, 0.001, 0.0005, 0.0001]},
+    "momentum":{"_type":"uniform", "_value":[0, 1]},
+    "batch_size": {"_type":"choice", "_value":[32, 64, 128]},
+    "optimizer":{"_type":"choice", "_value":["SGD", "Adam", "Adamax"]},
+    "model":{"_type":"choice", "_value":["nas", "vgg", "mobilenet"]}
+}
+
+#examples search space for nas
+#mutator only for darts
+{
+    "mutator_lr":{"_type":"choice", "_value":[0.01, 0.05, 0.001, 0.005, 0.0005]},
+    "mutator_momentum":{"_type":"uniform", "_value":[0, 1]},
+    "channels": {"_type":"choice", "_value":[4096, 1024, 256, 128]},
+    "layers":{"_type":"choice", "_value":[4,6,8]},
+    "dropout_rate":{"_type":"choice", "_value":[0.0, 0.2, 0.4, 0.6, 0.8]
+    "mutator_optimizer":{"_type":"choice", "_value":["SGD", "Adam", "Adamax"]}
+}
+
+#nested search space (tabular)
+{"model":{"_type":"choice", "_value":[{"_name":"logreg", "C":{"_type":"uniform", "_value":[0.5,1]},"penalty":{"_type":"choice", "_value":["l1", "l2"]}},
+                                          {"_name":"knn", "n_neighbors":{"_type":"choice", "_value":[3,4,5]},"weights":{"_type":"choice", "_value":["uniform", "distance"]}},
+                                          {"_name":"rf", "n_estimators":{"_type":"choice", "_value":[50,60,70,80,90,100]},"criterion":{"_type":"choice", "_value":["gini", "entropy"]},
+                                                  "max_depth":{"_type":"choice", "_value":[5,6,7]}, "max_leaf_nodes":{"_type":"choice", "_value":[8,9,10]}, "min_samples_leaf":{"_type":"choice", "_value":[1,2,3]}},
+                                          {"_name":"svc", "C":{"_type":"uniform", "_value":[0.5,1]},"kernel":{"_type":"choice", "_value":["linear", "poly", "rbf", "sigmoid"]}},
+                                          {"_name":"gaussiannb"}]}}
+}

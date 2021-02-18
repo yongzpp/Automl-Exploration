@@ -1,0 +1,37 @@
+#**only type, num_class, train_dir and val_dir are compulsory
+#choice: tabular, image, feature, text
+type: "text"
+#only needed for tabular data (class label)
+label: "class"
+num_class: 5
+epochs: 100
+batch_size: 32
+#csv file for tabular with prediction as "label" (only train_dir needed)
+#text file for text data with "sentence" | class_label per line
+#image data/
+#├── train/
+#├──────class 1
+#├──────class 2
+#├── val/
+#├──────class 1
+#├──────class 2
+train_dir: /home/yziping/data2/final/data/train
+val_dir: /home/yziping/data2/final/data/val
+#"resize":[100,100] implies transforms.Resize((100, 100))
+#"center_crop":[100,100] implies transforms.CenterCrop((100, 100))
+#"pad":[2,2] implies transforms.Pad((2, 2))
+#"random_crop":[100,100] implies transforms.RandomCrop((100, 100))
+#"random_horizontal_flip":[1] implies transforms.RandomHorizontalFlip(1)
+#"random_rotation":[45] implies transforms.RandomRotation(45)
+#"random_vertical_flip":[1] implies transforms.RandomVerticalFlip(1)
+#"normalize":[True] implies transforms.Normalize()
+#can be extended in dataset.py
+transform: [{"_type":"train", "_name":"resize", "_values":[64,64]},
+            {"_type":"test", "_name":"resize", "_values":[64,64]}]
+            #{"_type":"train", "_name":"random_horizontal_flip", "_values":[1]}]
+#option for feature extraction for NAS
+#choice: vgg, resnet
+feature: {"extract": "vgg"}
+#choice: darts, spos
+nas: {"type":"darts", "input_size":64, "in_channels":3, "layers":4, "channels":24, "dropout_rate":0.8,
+"save_path":"/home/yziping/final/checkpoints/trial3/epoch_36.json"}
