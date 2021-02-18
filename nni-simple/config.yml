@@ -1,0 +1,23 @@
+authorName: default
+experimentName: NNI
+trialConcurrency: 1
+maxExecDuration: 5h
+maxTrialNum: 100
+trainingServicePlatform: local
+searchSpacePath: search_space.json
+useAnnotation: false
+tuner:
+  #choice: TPE, Random, Anneal, Evolution, BatchTuner, MetisTuner
+  #SMAC (SMAC should be installed through nnictl)
+  builtinTunerName: TPE
+  classArgs:
+    optimize_mode: maximize
+trial:
+  #train.py for HPO
+  #nas.py for joint opt for nas
+  command: python3 train.py
+  codeDir: .
+  gpuNum: 1
+localConfig:
+  maxTrialNumPerGpu:  3
+  useActiveGpu: true
